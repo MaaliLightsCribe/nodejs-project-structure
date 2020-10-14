@@ -2,12 +2,11 @@ const path = require('path');
 const express = require('express');
 const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
-const connectDB = require('./startup/db');
-require('dotenv').config()
-
+const connectDB = require('./config/db');
+// require('dotenv').config();
 
 // // Load env vars
-// dotenv.config({ path: './config/config.env' });
+dotenv.config({ path: './config/config.env' });
 
 // Connect to database
 connectDB();
@@ -22,19 +21,19 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Route files
-require("./startup/routes")(app);
+// require("./startup/routes")(app);
+
+console.log(process.env.NODE_ENV);
 
 // Server Running Info
 const PORT = process.env.PORT || 8000
 //For Dev http
-if (process.env.NODE_ENV == "development") {
     const server = app.listen(
         PORT,
         console.log(
             `Server running in ${process.env.NODE_ENV} mode on port ${PORT}`
         )
     );
-}
 
 // Handle unhandled promise rejections
 process.on('unhandledRejection', (err, promise) => {
@@ -42,7 +41,3 @@ process.on('unhandledRejection', (err, promise) => {
     // Close server & exit process
     // server.close(() => process.exit(1));
 });
-
-
-
-

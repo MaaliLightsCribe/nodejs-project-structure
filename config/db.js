@@ -1,4 +1,4 @@
-const { db } = require("./config")
+const { db } = require("../startup/config")
 const Sequelize = require("sequelize");
 const connectDB = () => {
     const sequelize = new Sequelize(db.DATABASE_DEV, db.ADMIN, process.env.NODE_ENV == "development" ? db.PASSWORD_DEV : db.PASSWORD_PROD, {
